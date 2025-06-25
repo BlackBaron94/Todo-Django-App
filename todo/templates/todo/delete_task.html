@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Delete Task{% endblock %}
+
+{% block content %}
+
+	<h3>{{ user }}, you're about to delete task:</h3>
+	<p>"{{ task.task_text }}"</p>
+	<p><strong>Are you certain you want to delete above task?</strong></p>
+	<div style="display: flex; gap: 10px;">
+		<form method="POST" action="{% url 'delete_task_confirmed' task.id %}">
+			{% csrf_token %}
+			<button type="submit" class="in-app-buttons">Yes</button>
+		</form>
+		<form method="GET" action="{% url 'delete_task_aborted' task.id %}">
+			<button type="submit" class="in-app-buttons">No</button>
+		</form>
+	</div>
+    
+{% endblock %}

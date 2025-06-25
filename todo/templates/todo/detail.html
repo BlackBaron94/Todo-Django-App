@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}My Task's Details{% endblock %}
+
+{% block content %}
+
+	<h1>{{ task.task_text }}</h1>
+	<ul>
+		<li>Created by: {{ task.user }}</li>
+		<li>Published: {{ task.pub_date }}</li>
+		<li>Last updated: {{ task.last_update_date }}</li>
+		<li>Completed? {{ task.is_task_completed }}</li>
+	</ul>
+	<a href="{% url 'index' %}"><input type="button" class="in-app-buttons" value="Back to tasks"></a>
+
+{% endblock %}

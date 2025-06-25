@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Tasks{% endblock %}
+
+{% block content %}
+
+	{% if tasks %}
+		<h2>{{ user }}'s to-do list:</h2>
+			<ul>
+			{% for task in tasks %}
+				<li>
+				  <form method="POST" action="{% url 'toggle_completed' task.id %}">
+					{% csrf_token %}
+					<div class="task-row">
+					  <a href="{% url 'edit' task.id %}" class="icon-link">
+						<img src="{% static 'images/pencil.png' %}" alt="Edit" class="task-icon">
+					  </a>
+					  <a href="{% url 'delete_task' task.id %}" class="icon-link">
+						<img src="{% static 'images/X_mark.png' %}" alt="Delete" class="task-icon">
+					  </a>
+					  <input type="checkbox" name="completion_status" onchange="this.form.submit()" {% if task.completed %}checked{% endif %}>
+					  <span class="task-text" style="font-size: 20px; transform: translateY(-1px);{% if task.completed %}text-decoration: line-through;{% endif %}">
+						{{ task.task_text }}
+					  </span>
+					</div>
+				  </form>
+				</li>
+			{% endfor %}
+			</ul>
+	{% else %}
+		<p>You have not created any tasks yet, {{ user }}! Create some to see and edit them.</p>
+	{% endif %}
+	<a href="{% url 'create' %}"><button type="submit" class="in-app-buttons">Add Task</button></a>
+	
+{% endblock %}

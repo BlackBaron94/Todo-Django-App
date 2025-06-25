@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{% block title %}ToDo App{% endblock %}</title>
+		<link rel="stylesheet" href="{% static 'style.css' %}">
+		<link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+
+	</head>
+	<body>
+		<nav class="area">
+			<div class="navbar-left">
+				<span class="navbar-title"><a href= {% url "login" %}><img src="{% static 'images/notepad.png' %}" alt="Notepad" width="24" height="24"> ToDo App</a></span>
+			</div>
+			<div class="navbar-right">
+				{% if user.is_authenticated %}
+					<span>
+						Welcome, {{ user.username }}!
+					</span>
+					<form method="post" action="{% url 'logout' %}" class="logout-form">
+						{% csrf_token %}
+						<button type="submit" class="logout-button">
+							Logout
+						</button>
+					</form>
+				{% else %}
+					<a href="{% url 'login' %}" class="navbar-link">Login</a>
+					<a href="{% url 'signup' %}" class="navbar-link">Sign Up</a>
+				{% endif %}
+			</div>
+		</nav>
+
+		<main>
+		{% if messages %}
+		  <div class="messages">
+			{% for message in messages %}
+			  <div class="message {{ message.tags }}">
+				{{ message }}
+			  </div>
+			{% endfor %}
+		  </div>
+		{% endif %}
+
+		{% block content %}
+		{% endblock %}
+		</main>
+
+		<footer>
+			<p><small>&copy; 2025 Georgios Tsolakidis - ToDo App</small></p>
+		</footer>
+	</body>
+</html>

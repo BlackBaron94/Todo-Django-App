@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Add task{% endblock %}
+
+{% block content %}
+
+	{% if messages %}
+	  <div class="messages">
+		{% for message in messages %}
+		  <div class="message {{ message.tags }}">
+			{{ message }}
+		  </div>
+		{% endfor %}
+	  </div>
+	{% endif %}
+
+	<form method="POST" action="{% url 'add_task' %}" style="display:inline">
+		{% csrf_token %}
+		<h3>Enter your task:</h3>
+		<input name="task_text" class="task_text_entry" placeholder="Enter task description here" autofocus>
+		<br>
+		<input type="submit" class="in-app-buttons" value="Add task">
+	</form>
+	<br>
+	<a href="{% url 'index' %}"><input type="button" class="in-app-buttons" value="Back to tasks"></a>
+	
+{% endblock %}

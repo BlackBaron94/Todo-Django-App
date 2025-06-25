@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Edit task{% endblock %}
+
+{% block content %}
+
+	<h3>Here you can edit your task, {{ user }}!</h3>
+	<div class="task-summary">
+	  <p><strong>Current task description:</strong> {{ task.task_text }}</p>
+	  <p><strong>Task creation date:</strong> {{ task.pub_date }}</p>
+	  <p><strong>Task last update date:</strong> {{ task.last_update_date }}</p>
+	  <p><strong>Completed?</strong> {{ task.completed }}</p>
+	</div>
+
+	<form method="POST" action="{% url 'edit_completed' task.id %}">
+	  {% csrf_token %}
+	  <p><strong>Task description:</strong></p>
+	  <input name="task_text" class="task_text_entry" placeholder="Enter task description here" value="{{ task.task_text }}">
+	  <br>
+	  <p><strong>Task completion status:</strong></p>
+	  <input type="checkbox" name="completion_status" id="edit_checkbox" {% if task.completed %}checked{% endif %}>
+	  <br>	
+	  <input type="submit" class="in-app-buttons" value="Confirm changes">
+	</form>
+
+	<a href="{% url 'index' %}"><input type="button" class="in-app-buttons" value="Back to tasks"></a>
+	
+{% endblock %}
