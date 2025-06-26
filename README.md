@@ -79,7 +79,7 @@
 │   │   ├── todo/            # Templates για όλες τις υπόλοιπες σελίδες της εφαρμογής (index, create, edit ...)
 ├── .env.example        # Αρχείο παράδειγμα για τις ρυθμίσεις των environment variables που απαιτούνται
 ├── .gitignore
-├── .LICENSE
+├── LICENSE
 ├── manage.py
 └── requirements.txt
 ```
