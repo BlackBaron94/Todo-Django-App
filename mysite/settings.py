@@ -98,7 +98,6 @@ DATABASES = {
     }
 }
 
-
 # Override for GitHub Actions
 if os.environ.get("GITHUB_WORKFLOW") or "test" in sys.argv:
     DATABASES = {
@@ -111,6 +110,18 @@ if os.environ.get("GITHUB_WORKFLOW") or "test" in sys.argv:
             "PORT": "5432",
         }
     }
+
+# For SQLite3 and/or local testing, comment out above section and uncomment this:
+    
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+
+
+
 
 
 # Password validation
