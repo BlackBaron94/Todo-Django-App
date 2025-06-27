@@ -20,8 +20,8 @@
 
 ## Περιεχόμενα
 - [Περιγραφή Project](#περιγραφή-project)
+- [CI/CD και Testing](#cicd-και-testing)
 - [Οδηγίες Εγκατάστασης](#οδηγίες-εγκατάστασης)
-- [Περιορισμοί](#περιορισμοί)
 - [Χρήση](#χρήση)
 - [Μελλοντικές Προσθήκες](#μελλοντικές-προσθήκες)
 - [Επικοινωνία](#επικοινωνία)
@@ -56,15 +56,6 @@
 
 <a href="https://github.com/features/actions"> <img src="https://img.shields.io/badge/%20-GitHubActions-0A1F44?logo=githubactions&logoColor=2088FF-GitHubActions&style=plastic" alt="GitHubActions-Logo" width=223px height=39px/></a>
 
-### CI/CD
-
-Το project χρησιμοποιεί [GitHub Actions](https://github.com/features/actions) για την αυτοματοποιημένη εκτέλεση δοκιμών (tests) σε κάθε αλλαγή στον κώδικα (push ή pull request στο main branch).
-
-Ορίζεται στο αρχείο `.github/workflows/tests.yml` και περιλαμβάνει αυτόματη εγκατάσταση dependencies και εκτέλεση των tests.
-
-Το badge στο πάνω μέρος δείχνει την τρέχουσα κατάσταση των tests και το ποσοστό του κώδικα που καλύπτεται από αυτά.
-
-
 ### Δομή του Project
 
 ```bash
@@ -84,6 +75,56 @@
 └── requirements.txt
 ```
 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## CI/CD και Testing
+
+Το project χρησιμοποιεί [GitHub Actions](https://github.com/features/actions) για την αυτοματοποιημένη εκτέλεση δοκιμών (tests) σε κάθε αλλαγή στον κώδικα (push ή pull request στο main branch).
+
+Ορίζεται στο αρχείο `.github/workflows/tests.yml` και περιλαμβάνει αυτόματη εγκατάσταση dependencies και εκτέλεση των tests.
+
+Το badge στο πάνω μέρος δείχνει την τρέχουσα κατάσταση των tests και το ποσοστό του κώδικα που καλύπτεται από αυτά.
+
+Η εφαρμογή καλύπτεται με **25+ tests**, οργανωμένα με χρήση του Django `TestCase`. Περιλαμβάνουν:
+- Model logic:
+  
+  ✔ Έλεγχος string representation
+  
+  ✔ Προεπιλεγμένη κατάσταση `completed=False`
+  
+- CRUD logic των tasks:
+  
+  ✔ Προσθήκη, επεξεργασία, διαγραφή
+  
+  ✔ Ενημέρωση κατάστασης (completed/pending)
+  
+  ✔ Έλεγχος ορίων (μήκος περιγραφής task)
+  
+- Authorization/Authentication:
+  
+  ✔ Χρήστες δεν μπορούν να δουν ή να αλλάξουν tasks άλλων χρηστών
+  
+  ✔ Redirects όταν δεν έχει γίνει login (@login_required)
+  
+  ✔ Redirects σε `/todo/` αν ο χρήστης είναι logged in και προσπαθεί να πάει στη url `/login/ ` ή στη `/signup/`
+  
+- HTTP method control & form validation:
+  
+  ✔ Απαγόρευση GET σε views που απαιτούν POST (@require_POST)
+  
+  ✔ Έλεγχος για άδεια ή non valid submissions
+  
+- General Redirection behavior:
+  
+  ✔ Επιστροφή στο `/todo/` μετά από κάθε ενέργεια
+  
+  ✔ Προστασία από unauthorized access με redirects σε `/login/`
+
+Τα tests εκτελούνται αυτόματα με κάθε αλλαγή στο repository μέσω [GitHub Actions](https://github.com/features/actions) και τα αποτελέσματα καταγράφονται
+στο [Codecov](https://about.codecov.io/).
+
+> Δείτε το αρχείο [tests.py](./todo/tests.py).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
