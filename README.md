@@ -36,7 +36,7 @@
 * Να τσεκάρει τα tasks που έχουν ολοκληρωθεί.
 * Να διαγράψει tasks του.
 
-Η εφαρμογή έχει ανεβεί στο Render και επικοινωνεί με βάση δεδομένων PostgreSQL που είναι ανεβασμένη επίσης στο Render.
+Η εφαρμογή έχει ανεβεί στο Render και επικοινωνεί με βάση δεδομένων PostgreSQL υλοποιημένη με AWS RDS.
 
 *Σημείωση: Οι έλεγχοι του κωδικού (όπως η απαίτηση να μην είναι αριθμητικός ή πολύ απλός) υλοποιούνται από το σύστημα αυθεντικοποίησης του Django και δεν τροποποιήθηκαν.*
 
@@ -53,6 +53,8 @@
 <a href="https://www.w3schools.com/html/"> <img src="https://img.shields.io/badge/%20-HTML-blue?logo=HTML5&logoColor=white-HTML&style=plastic" alt="HTML-Logo" width=100px/></a>
 
 <a href="https://www.w3schools.com/css/"> <img src="https://img.shields.io/badge/%20-CSS-663399?logo=CSS&logoColor=white-CSS&style=plastic" alt="CSS-Logo" width=90px/></a>
+
+<a href="https://aws.amazon.com/?nc2=h_home"> <img src="https://logos-world.net/wp-content/uploads/2021/08/Amazon-Web-Services-AWS-Logo-700x394.png" alt="AWS-logo" width=90px></a>
 
 <a href="https://github.com/features/actions"> <img src="https://img.shields.io/badge/%20-GitHubActions-0A1F44?logo=githubactions&logoColor=2088FF-GitHubActions&style=plastic" alt="GitHubActions-Logo" width=223px height=39px/></a>
 
@@ -153,7 +155,7 @@
    pip install -r requirements.txt
    ```
 
-4. Ρύθμιση των environment variables σε αρχείο .env όπως φαίνεται στο .env.example. (απαιτείται εγκατεστημένη PostgreSQL)
+4. Ρύθμιση των environment variables σε αρχείο .env όπως φαίνεται στο .env.example. (απαιτείται εγκατεστημένη PostgreSQL, εναλλακτικά δείτε παρακάτω για SQLite3)
 - PostgreSQL:
    ```sh
    DB_NAME=todo_db
@@ -167,7 +169,7 @@
    ALLOWED_HOSTS=localhost,127.0.0.1
    ```
    
-- Για να τρέξει τοπικά με SQLite3 εισάγετε τον παρακάτω κώδικα στο settings.py:
+- Για να τρέξει τοπικά με SQLite3 κάνετε uncomment τον παρακάτω κώδικα στο mysite/settings.py (απαιτείται και πάλι αρχείο .env με SECRET_KEY, DEBUG, ALLOWED_HOSTS) :
   ```python
   DATABASES = {
     'default': {
@@ -265,6 +267,7 @@
 - [X] Προσθήκη authentication.
 - [X] Διαχείριση task με περιγραφή μεγαλύτερη των 200 χαρακτήρων (όριο task_text field στο DB).
 - [X] Προσθήκη CI/CD pipeline με tests για edge cases.
+- [X] Προσθήκη βάσης δεδομένων AWS RDS.
 - [ ] Φίλτρο tasks (ημερομηνία, κατάσταση).
 - [ ] Ταξινόμηση tasks (ημερομηνία, κατάσταση).
 - [ ] Προσθήκη deadlines για tasks και νέας κατάστασης task (failed to meet deadline).
